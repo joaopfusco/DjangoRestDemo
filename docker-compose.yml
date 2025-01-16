@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: Senha123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - services
+
+  project:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: False
+      DATABASE_URL: postgres://postgres:Senha123@db:5432/postgres
+    depends_on:
+      - db
+    networks:
+      - services
+      - network
+  
+volumes:
+  postgres_data:
+
+networks:
+  services:
+  network:
+    driver: bridge

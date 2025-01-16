@@ -1,0 +1,7 @@
+**/.py[cod]
+**/*.sqlite*
+.vscode/
+**/__pycache__/
+.env
+venv/
+**/staticfiles_build/
