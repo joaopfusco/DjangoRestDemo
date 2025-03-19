@@ -3,16 +3,17 @@ from django.contrib.auth.models import User
 from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     password = serializers.CharField(write_only=True)
+    date_joined = serializers.DateTimeField(read_only=True)
+    last_login = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = User
         fields = '__all__'
 
     def create(self, validated_data):
-        instance = User.objects.create_user(validated_data)
-        instance.save()
-        return instance
+        return User.objects.create_user(**validated_data)
 
     def update(self, instance, validated_data):
         password = validated_data.pop("password", None)
