@@ -1,0 +1,28 @@
+[project]
+name = "DjangoRestDemo"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "JPFUSCO_LAPTOP\\joaop", email = "joaopedrofusco@gmail.com"},
+]
+dependencies = [
+    "dj-database-url==2.3.0",
+    "django==5.1.2",
+    "django-filter==24.3",
+    "django-jazzmin==3.0.1",
+    "djangorestframework==3.15.2",
+    "djangorestframework-simplejwt==5.3.1",
+    "drf-yasg==1.21.8",
+    "gunicorn==23.0.0",
+    "psycopg2-binary==2.9.10",
+    "python-decouple==3.8",
+    "uvicorn==0.32.0",
+    "whitenoise==6.8.2",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false

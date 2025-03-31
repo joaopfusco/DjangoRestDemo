@@ -1,13 +1,13 @@
-FROM python:3.12-alpine as builder
+FROM python:3.12-alpine AS builder
 
 RUN mkdir -p /app
 WORKDIR /app
 COPY . .
 
-ENV PIPENV_VENV_IN_PROJECT=1
+RUN apk add --no-cache gcc musl-dev libpq-dev
 
-RUN python -m pip install pipenv
-RUN pipenv install
+RUN python -m pip install --no-cache-dir pdm
+RUN pdm install --prod --no-lock --no-editable
 
 FROM python:3.12-alpine
 

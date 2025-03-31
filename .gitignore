@@ -3,5 +3,7 @@
 .vscode/
 **/__pycache__/
 .env
-venv/
+.venv/
 **/staticfiles_build/
+.pdm-python
+__pypackages__/
