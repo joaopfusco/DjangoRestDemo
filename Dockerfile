@@ -1,25 +1,25 @@
 FROM python:3.12-alpine AS builder
 
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p /project
+WORKDIR /project
 COPY . .
 
-RUN apk add --no-cache gcc musl-dev libpq-dev
+RUN apk add --no-cache gcc musl-dev postgresql-dev linux-headers python3-dev
 
 RUN python -m pip install --no-cache-dir pdm
 RUN pdm install --prod --no-lock --no-editable
 
 FROM python:3.12-alpine
 
-COPY --from=builder /app /app
-WORKDIR /app
+WORKDIR /project
+COPY --from=builder /project /project
 
-ENV PATH="/app/.venv/bin:$PATH"
+ENV PATH="/project/.venv/bin:$PATH"
 
 RUN chmod +x entrypoint.sh
 
 EXPOSE 8000
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+ENTRYPOINT [ "/project/entrypoint.sh" ]
 
 CMD ["python", "-m", "uvicorn", "DjangoRestDemo.asgi:application", "--host", "0.0.0.0", "--port", "8000"]
